@@ -16,7 +16,7 @@
 
 1. [2026-10-31: In this session I finished the schematic of my project. It wasn't too complicated, but it was my first time making a project schematic without a guide. In total, there is an ESP32 (where everything is](#2026-10-31-in-this-session-i-finished-the-schematic-of-my-pr)
 2. [2026-10-31: I finished the PCB and wiring in this session. I started with making the outline of where the screen will be and how big the PCB will be. I wanted to keep the PCB under 100m x 100m, and I settled with](#2026-10-31-i-finished-the-pcb-and-wiring-in-this-session-i-s)
-3. [2026-11-01: This session I started the firmware for the desk dashboard. I’m using Arduino with the ESP32 core, Adafruit_ST7789 for the screen, and Adafruit_NeoPixel for the built in LED. The plan is to have 9 pag](#2026-11-01-this-session-i-started-the-firmware-for-the-desk-)
+3. [2026-11-01: This session I started the firmware for the desk dashboard. I’m using Arduino with the ESP32 core, Adafruit ST7789 for the screen, and Adafruit NeoPixel for the built in LED. The plan is to have 9 pag](#2026-11-01-this-session-i-started-the-firmware-for-the-desk-)
 
 ## Design
 
@@ -70,11 +70,11 @@ Finally, I added designs for the silkscreen. This is the final result:
 
 ![Screenshot 2026-10-31 at 6.39.28 PM](https://halflife.hackclub-assets.com/sessions/7ME5CuFiz5X4u2KxuO278yO001rQ8Db2/0e00eda602ace4cdae6cb29a061a9bdb0c2c5658f167bd7abd3ab8c25b12da69.png)
 
-### 2026-11-01: This session I started the firmware for the desk dashboard. I’m using Arduino with the ESP32 core, Adafruit_ST7789 for the screen, and Adafruit_NeoPixel for the built in LED. The plan is to have 9 pag
+### 2026-11-01: This session I started the firmware for the desk dashboard. I’m using Arduino with the ESP32 core, Adafruit ST7789 for the screen, and Adafruit NeoPixel for the built in LED. The plan is to have 9 pag
 
 **4h**
 
-This session I started the firmware for the desk dashboard. I’m using Arduino with the ESP32 core, Adafruit_ST7789 for the screen, and Adafruit_NeoPixel for the built in LED. The plan is to have 9 pages on the screen (clock, weather, pomodoro, daily chess puzzle, chess stats, FRC, GitHub, quote/fun fact, and countdowns). Turning the encoder will change the page, and pressing it will do an action.
+This session I started the firmware for the desk dashboard. I’m using Arduino with the ESP32 core, Adafruit ST7789 for the screen, and Adafruit NeoPixel for the built in LED. The plan is to have 9 pages on the screen (clock, weather, pomodoro, daily chess puzzle, chess stats, FRC, GitHub, quote/fun fact, and countdowns). Turning the encoder will change the page, and pressing it will do an action.
 
 First I matched the pins to my schematic. The screen uses GPIO 7–12, the encoder uses GPIO 1–3, and the LED is on GPIO 21. I also made it so that each page has its own color, and the status LED changes to that colour too.
 
