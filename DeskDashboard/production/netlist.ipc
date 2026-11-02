@@ -1,0 +1,62 @@
+P  JOB   DeskDashboard                                                          
+P  CODE  00                                                                     
+P  UNITS CUST 0                                                                 
+P  arrayDim   N                                                                 
+P  VER   IPC-D-356A                                                             
+P  IMAGE PRIMARY                                                                
+P  NNAMEM0000 unconnected-(U1-GP13-Pad13)                                       
+P  NNAMEM0001 unconnected-(U1-GP4-Pad4)                                         
+P  NNAMEM0002 unconnected-(U1-GP5-Pad5)                                         
+P  NNAMEM0003 unconnected-(U1-GP6-Pad6)                                         
+P  NNAMEM0004 unconnected-(U1-Pad5V)                                            
+P  NNAMEM0005 unconnected-(U1-PadRX)                                            
+P  NNAMEM0006 unconnected-(U1-PadTX)                                            
+317+3V3             R1    -1    D0315PA00X+029496Y-036220X0630Y0000R000 S0      
+317+3V3             J1    -2    D0394PA00X+026945Y-032421X0669Y0000R180 S0      
+327+3V3             C1    -1          A01X+028780Y-032874X0394Y0571R000 S2      
+327+3V3             Q1    -2          A01X+029552Y-034823X0581Y0236R000 S2      
+317+3V3             U1    -3V3  D0394PA00X+056937Y-044520X0594Y0000R180 S0      
+317/BL_PWR          J1    -8    D0394PA00X+026945Y-026421X0669Y0000R180 S0      
+327/BL_PWR          Q1    -3          A01X+030290Y-034449X0581Y0236R000 S2      
+317/ENC_A           SW1   -A    D0394PA00X+052264Y-029724X0787Y0787R000 S0      
+317/ENC_A           U1    -1    D0394PA00X+056937Y-043520X0594Y0000R180 S0      
+317/ENC_B           SW1   -B    D0394PA00X+052264Y-031693X0787Y0000R000 S0      
+317/ENC_B           U1    -2    D0394PA00X+056937Y-042520X0594Y0000R180 S0      
+317/ENC_SW          SW1   -S1   D0394PA00X+057972Y-031693X0787Y0000R000 S0      
+317/ENC_SW          U1    -3    D0394PA00X+056937Y-041520X0594Y0000R180 S0      
+317/TFT_BL          R1    -2    D0315PA00X+033496Y-036220X0630Y0000R000 S0      
+327/TFT_BL          Q1    -1          A01X+029552Y-034075X0581Y0236R000 S2      
+317/TFT_BL          U1    -7    D0394PA00X+050937Y-038520X0594Y0000R180 S0      
+317/TFT_CS          J1    -7    D0394PA00X+026945Y-027421X0669Y0000R180 S0      
+317/TFT_CS          U1    -10   D0394PA00X+050937Y-041520X0594Y0000R180 S0      
+317/TFT_DC          J1    -6    D0394PA00X+026945Y-028421X0669Y0000R180 S0      
+317/TFT_DC          U1    -9    D0394PA00X+050937Y-040520X0594Y0000R180 S0      
+317/TFT_MOSI        J1    -4    D0394PA00X+026945Y-030421X0669Y0000R180 S0      
+317/TFT_MOSI        U1    -11   D0394PA00X+050937Y-042520X0594Y0000R180 S0      
+317/TFT_RST         J1    -5    D0394PA00X+026945Y-029421X0669Y0000R180 S0      
+317/TFT_RST         U1    -8    D0394PA00X+050937Y-039520X0594Y0000R180 S0      
+317/TFT_SCK         J1    -3    D0394PA00X+026945Y-031421X0669Y0000R180 S0      
+317/TFT_SCK         U1    -12   D0394PA00X+050937Y-043520X0594Y0000R180 S0      
+317GND              J1    -1    D0394PA00X+026945Y-033421X0669Y0669R180 S0      
+327GND              C1    -2          A01X+029528Y-032874X0394Y0571R000 S2      
+317GND              SW1   -C    D0394PA00X+052264Y-030709X0787Y0000R000 S0      
+317GND              SW1   -S2   D0394PA00X+057972Y-029724X0787Y0000R000 S0      
+317GND              U1    -GND  D0394PA00X+056937Y-045520X0594Y0000R180 S0      
+317M0000            U1    -13   D0394PA00X+050937Y-044520X0594Y0000R180 S0      
+317M0001            U1    -4    D0394PA00X+056937Y-040520X0594Y0000R180 S0      
+317M0002            U1    -5    D0394PA00X+056937Y-039520X0594Y0000R180 S0      
+317M0003            U1    -6    D0394PA00X+056937Y-038520X0594Y0000R180 S0      
+317M0004            U1    -5V   D0394PA00X+056937Y-046520X0594Y0594R180 S0      
+317M0005            U1    -RX   D0394PA00X+050937Y-045520X0594Y0000R180 S0      
+317M0006            U1    -TX   D0394PA00X+050937Y-046520X0594Y0000R180 S0      
+367N/C              H2         MD1063UA00X+049433Y-036118X1063Y0000R000 S0      
+367N/C              H3         MD1063UA00X+027339Y-036118X1063Y0000R000 S0      
+367N/C              H1         MD1063UA00X+049433Y-023724X1063Y0000R000 S0      
+367N/C              H4         MD1063UA00X+027339Y-023724X1063Y0000R000 S0      
+367N/C              H8         MD1260UA00X+025197Y-021260X1260Y0000R000 S0      
+367N/C              H7         MD1260UA00X+025197Y-045669X1260Y0000R000 S0      
+367N/C              H5         MD1260UA00X+059449Y-021260X1260Y0000R000 S0      
+367N/C              H6         MD1260UA00X+059449Y-045669X1260Y0000R000 S0      
+317N/C              SW1   -MP   D0591PA00X+055217Y-028504X1260Y0787R000 S0      
+317N/C              SW1   -MP   D0591PA00X+055217Y-032913X1260Y0787R000 S0      
+999                                                                             
