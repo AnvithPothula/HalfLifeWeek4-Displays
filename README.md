@@ -1,5 +1,4 @@
 # HalfLifeWeek4-Displays
-
 For Week 4 I designed my own project from scratch: a Wi-Fi desk dashboard. It's a small PCB with an ESP32-S3-Zero, a 2.0" color screen, and one rotary encoder. It sits on my desk and shows the things I check every day, so I don't have to pick up my phone for them. Turning the knob switches between 9 pages, and pressing it does something different on each page.
  
 **3D Model / Final PCB Render:**
