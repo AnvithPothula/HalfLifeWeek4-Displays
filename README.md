@@ -87,6 +87,8 @@ The full bill of materials is in [BOM.csv](BOM.csv):
 | 10uF 0805 capacitor (200-pack) | 1 | AliExpress | $2.26 | $2.26 | [AliExpress](https://www.aliexpress.us/item/2251800929439420.html) |
 | EC11 rotary encoder (spare from Week 3) | 1 | AliExpress | $0.00 | $0.00 | [AliExpress](https://www.aliexpress.us/item/3256808530463909.html) |
 | 10k resistor (spare from Week 1) | 1 | AliExpress | $0.00 | $0.00 | [AliExpress](https://www.aliexpress.us/item/3256806338200607.html) |
-| PCB | 1 | JLCPCB | $8.16 | $8.16 | [JLCPCB](https://jlcpcb.com/) |
-| Estimated tax (AliExpress) | — | — | — | $1.19 | — |
-| **Estimated total** |  |  |  | **$22.76** |  |
+| PCB (2-layer, 95x70mm) | 1 | JLCPCB | $4.00 | $4.00 | [JLCPCB](https://jlcpcb.com/) |
+| Shipping (AliExpress Choice) | — | AliExpress | — | $0.00 | — |
+| Shipping (JLCPCB Global Standard Direct Line) | — | JLCPCB | — | $8.16 | — |
+| Estimated sales tax (8.125% on AliExpress parts) | — | — | — | $1.19 | — |
+| **Estimated total** |  |  |  | **$27.95** |  |
