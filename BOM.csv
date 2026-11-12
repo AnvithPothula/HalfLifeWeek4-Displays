@@ -1,9 +1,9 @@
 Item,Qty,Supplier,Cost/item,Total Cost,link
 ESP32-S3-Zero (no headers),1,AliExpress,$4.32,$4.32,https://www.aliexpress.us/item/3256807949476561.html
-2.0in IPS ST7789 screen (8-pin),1,AliExpress,$6.18,$6.18,https://www.aliexpress.us/item/3256804844327418.html
+"2.0"" IPS ST7789 screen (8-pin)",1,AliExpress,$6.18,$6.18,https://www.aliexpress.us/item/3256804844327418.html
 AO3401A MOSFET (100-pack),1,AliExpress,$1.84,$1.84,https://www.aliexpress.us/item/2251801213228611.html
 10uF 0805 capacitor (200-pack),1,AliExpress,$2.26,$2.26,https://www.aliexpress.us/item/2251800929439420.html
 EC11 rotary encoder (spare from Week 3),1,AliExpress,$0.00,$0.00,https://www.aliexpress.us/item/3256808530463909.html
-10k resistor (100-pack),1,AliExpress,$1.27,$1.27,https://www.aliexpress.us/item/3256806338200607.html
-PCB (2-layer 95x70mm),1,JLCPCB,$4.00,$4.00,https://jlcpcb.com/
-Estimated total shipping,1,,,$9.45,
+10k resistor (spare from Week 1),1,AliExpress,$0.00,$0.00,https://www.aliexpress.us/item/3256806338200607.html
+"PCB (2-layer, 95x70mm)",1,JLCPCB,$4.00,$4.00,https://jlcpcb.com/
+Estimated total shipping,1,,,$9.35,
