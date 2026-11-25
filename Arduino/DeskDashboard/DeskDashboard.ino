@@ -196,7 +196,7 @@ void setStatusColor(uint8_t r, uint8_t g, uint8_t b) {
 
 void showPageColor() {
   if (pomoState == POMO_RUNNING) {
-    if (pomoOnBreak) setStatusColor(0,255,0); else setStatusColor(255,0,0);
+    if(pomoOnBreak) setStatusColor(0,255,0); else setStatusColor(255,0,0);
     return;
   }
   // roughly matches each page header color
@@ -248,12 +248,12 @@ void drawMessage(const char* msg) {
 String toAscii(const String& in) {
   String out;
   out.reserve(in.length());
-  for (unsigned int i = 0; i < in.length(); i++) {
+  for(unsigned int i = 0; i < in.length(); i++) {
     uint8_t c = (uint8_t)in[i];
     if (c < 128) { out += (char)c; continue; }
     if (c == 0xE2 && i + 2 < in.length() && (uint8_t)in[i + 1] == 0x80) {
       uint8_t c3 = (uint8_t)in[i + 2];
-      if (c3 == 0x98 || c3 == 0x99) out += '\'';
+      if(c3 == 0x98 || c3 == 0x99) out += '\'';
       else if (c3 == 0x9C || c3 == 0x9D) out += '"';
       else if (c3 == 0x93 || c3 == 0x94) out += '-';
       else if (c3 == 0xA6) out += "...";
@@ -261,7 +261,7 @@ String toAscii(const String& in) {
       continue;
     }
     if (c >= 0xF0) i += 3;
-    else if (c >= 0xE0) i += 2;
+    else if(c >= 0xE0) i += 2;
     else if (c >= 0xC0) i += 1;
   }
   return out;
@@ -279,7 +279,7 @@ int printWrapped(int x, int y, int size, uint16_t color, const String& text, int
     if (end >= len) end = len;
     else {
       int sp = text.lastIndexOf(' ', end);
-      if (sp > start) end = sp;
+      if(sp > start) end = sp;
     }
     if (draw) {
       String line = text.substring(start, end);
@@ -324,7 +324,7 @@ long daysUntil(int year, int month, int day) {
 
 // "2026-03-14" -> y m d
 bool parseDate(const String& s, int& y, int& m, int& d) {
-  if (s.length() < 10) return false;
+  if(s.length() < 10) return false;
   y = s.substring(0, 4).toInt();
   m = s.substring(5, 7).toInt();
   d = s.substring(8, 10).toInt();
@@ -342,7 +342,7 @@ bool getJson(const String& url, JsonDocument& doc, JsonDocument& filter,
   http.setTimeout(8000);
   if (!http.begin(client, url)) return false;
   http.addHeader("User-Agent", "DeskDashboard/1.0");
-  if (headerName != nullptr) http.addHeader(headerName, headerValue);
+  if(headerName != nullptr) http.addHeader(headerName, headerValue);
   int code = http.GET();
   bool ok = false;
   if (code == 200) ok = !deserializeJson(doc, http.getStream(), DeserializationOption::Filter(filter));
@@ -378,7 +378,7 @@ void fetchWeather() {
 // nothing shows up for the current year after the season ends
 void fetchFrc() {
   frc.fetchedAt = millis();
-  if (strlen(TBA_API_KEY) == 0) { frc.ok = false; return; }
+  if(strlen(TBA_API_KEY) == 0) { frc.ok = false; return; }
   struct tm now;
   if (!getLocalTime(&now, 0)) { frc.ok = false; return; }
   int cur_yr = now.tm_year + 1900;
@@ -397,7 +397,7 @@ void fetchFrc() {
 
     long best = 100000;
     bool found = false;
-    for (JsonObject ev : doc.as<JsonArray>()) {
+    for(JsonObject ev : doc.as<JsonArray>()) {
       String endDate = ev["end_date"] | "";
       int y, m, d;
       if (!parseDate(endDate, y, m, d)) continue;
@@ -411,7 +411,7 @@ void fetchFrc() {
         found = true;
       }
     }
-    if (found) { frc.ok = true; return; }
+    if(found) { frc.ok = true; return; }
   }
   frc.ok = false;
 }
@@ -463,7 +463,7 @@ void fetchGithub() {
   filter["followers"] = true;
   JsonDocument doc;
   String url = String("https://api.github.com/users/") + GITHUB_USER;
-  if (!getJson(url, doc, filter)) { github.ok = false; return; }
+  if(!getJson(url, doc, filter)) { github.ok = false; return; }
   github.repos = doc["public_repos"] | 0;
   github.followers = doc["followers"] | 0;
 
@@ -486,7 +486,7 @@ bool loadFen(const String& fen, char board[8][8], bool& whiteToMove) {
   unsigned int i = 0;
   for (; i < fen.length() && fen[i] != ' '; i++) {
     char ch = fen[i];
-    if (ch == '/') { row++; col = 0; }
+    if(ch == '/') { row++; col = 0; }
     else if (ch >= '1' && ch <= '8') { col += ch - '0'; }
     else {
       if (row > 7 || col > 7) return false;
@@ -511,7 +511,7 @@ void fetchPuzzle() {
   if (!getJson("https://lichess.org/api/puzzle/daily", doc, filter)) { puzzle.ok = false; return; }
 
   String fen = doc["puzzle"]["fen"] | "";
-  if (!loadFen(fen, puzzle.startBoard, puzzle.whiteToMove)) { puzzle.ok = false; return; }
+  if(!loadFen(fen, puzzle.startBoard, puzzle.whiteToMove)) { puzzle.ok = false; return; }
   memcpy(puzzle.board, puzzle.startBoard, sizeof(puzzle.board));
   puzzle.rating = doc["puzzle"]["rating"] | 0;
   puzzle.lastMove = doc["puzzle"]["lastMove"] | "";
@@ -531,7 +531,7 @@ void fetchPuzzle() {
   puzzle.solLen = 0;
   JsonArray moves = doc["puzzle"]["solution"];
   for (JsonVariant m : moves) {
-    if (puzzle.solLen >= MAX_SOLUTION) break;
+    if(puzzle.solLen >= MAX_SOLUTION) break;
     puzzle.solution[puzzle.solLen++] = m | "";
   }
   puzzle.movesShown = 0;
@@ -557,7 +557,7 @@ void fetchQuote() {
     filter[0]["a"] = true;
     JsonDocument doc;
     quote.ok = getJson("https://zenquotes.io/api/random", doc, filter);
-    if (quote.ok) {
+    if(quote.ok) {
       quote.text = toAscii(doc[0]["q"] | "");
       quote.author = toAscii(doc[0]["a"] | "");
     }
@@ -572,13 +572,13 @@ void updateCurrentPageData(bool force) {
     fetchWeather(); fetched = true;
   } else if (curPage == PAGE_FRC && (force || frc.fetchedAt == 0 || now - frc.fetchedAt > FRC_EVERY)) {
     fetchFrc(); fetched = true;
-  } else if (curPage == PAGE_CHESS && (force || chess.fetchedAt == 0 || now - chess.fetchedAt > CHESS_EVERY)) {
+  } else if(curPage == PAGE_CHESS && (force || chess.fetchedAt == 0 || now - chess.fetchedAt > CHESS_EVERY)) {
     fetchChess(); fetched = true;
   } else if (curPage == PAGE_GITHUB && (force || github.fetchedAt == 0 || now - github.fetchedAt > GITHUB_EVERY)) {
     fetchGithub(); fetched = true;
   } else if (curPage == PAGE_PUZZLE && (force || puzzle.fetchedAt == 0 || now - puzzle.fetchedAt > PUZZLE_EVERY)) {
     fetchPuzzle(); fetched = true;
-  } else if (curPage == PAGE_QUOTE && (force || quote.fetchedAt == 0 || now - quote.fetchedAt > QUOTE_EVERY)) {
+  } else if(curPage == PAGE_QUOTE && (force || quote.fetchedAt == 0 || now - quote.fetchedAt > QUOTE_EVERY)) {
     fetchQuote(); fetched = true;
   }
   if (fetched) needRedraw = true;
@@ -615,7 +615,7 @@ void pomoReset() {
 }
 
 void pomoTogglePause() {
-  if (pomoState == POMO_RUNNING) {
+  if(pomoState == POMO_RUNNING) {
     pomoState = POMO_PAUSED;
   } else {
     pomoState = POMO_RUNNING;
@@ -626,7 +626,7 @@ void pomoTogglePause() {
 
 // blocks for ~1s but only happens when a phase ends
 void blinkStatus(uint8_t r, uint8_t g, uint8_t b) {
-  for (int i = 0; i < 3; i++) {
+  for (int i=0; i<3; i++) {
     setStatusColor(r, g, b);
     delay(200);
     setStatusColor(0, 0, 0);
@@ -639,7 +639,7 @@ void pomoTick() {
   unsigned long now = millis();
   unsigned long dt = now - pomoLastTick;
   pomoLastTick = now;
-  if (dt < pomoLeftMs) { pomoLeftMs -= dt; return; }
+  if(dt < pomoLeftMs) { pomoLeftMs -= dt; return; }
   pomoLeftMs = 0;
   if (!pomoOnBreak) {
     pomoDone++;
@@ -662,7 +662,7 @@ const int BOARD_Y = 40;
 
 // "e4" -> row/col where row 0 is rank 8
 bool squareToRowCol(char file, char rank, int& row, int& col) {
-  if (file < 'a' || file > 'h' || rank < '1' || rank > '8') return false;
+  if(file < 'a' || file > 'h' || rank < '1' || rank > '8') return false;
   col = file - 'a';
   row = 7 - (rank - '1');
   return true;
@@ -672,21 +672,21 @@ bool is_hl(int row, int col) {
   if (puzzle.highlightMove.length() < 4) return false;
   int r1, c1, r2, c2;
   if (!squareToRowCol(puzzle.highlightMove[0], puzzle.highlightMove[1], r1, c1)) return false;
-  if (!squareToRowCol(puzzle.highlightMove[2], puzzle.highlightMove[3], r2, c2)) return false;
+  if(!squareToRowCol(puzzle.highlightMove[2], puzzle.highlightMove[3], r2, c2)) return false;
   return (row == r1 && col == c1) || (row == r2 && col == c2);
 }
 
 void drawBoard() {
   bool flip = !puzzle.whiteToMove;
   for (int row = 0; row < 8; row++) {
-    for (int col = 0; col < 8; col++) {
+    for (int col=0; col<8; col++) {
       int draw_row = flip ? 7 - row : row;
       int draw_col = flip ? 7 - col : col;
       int x = BOARD_X + draw_col * SQ;
       int y = BOARD_Y + draw_row * SQ;
       bool light = ((row + col) % 2) == 0;
       uint16_t sq_col = light ? COL_LIGHT_SQ : COL_DARK_SQ;
-      if (is_hl(row, col)) sq_col = COL_LAST_SQ;
+      if(is_hl(row, col)) sq_col = COL_LAST_SQ;
       tft.fillRect(x, y, SQ, SQ, sq_col);
 
       char piece = puzzle.board[row][col];
@@ -710,13 +710,13 @@ void drawBoard() {
 void applyMove(const String& mv) {
   if (mv.length() < 4) return;
   int r1, c1, r2, c2;
-  if (!squareToRowCol(mv[0], mv[1], r1, c1)) return;
+  if(!squareToRowCol(mv[0], mv[1], r1, c1)) return;
   if (!squareToRowCol(mv[2], mv[3], r2, c2)) return;
   char piece = puzzle.board[r1][c1];
   if (piece == '.') return;
   bool white_pc = (piece >= 'A' && piece <= 'Z');
 
-  if ((piece == 'K' || piece == 'k') && abs(c2 - c1) == 2) { // castling, move the rook too
+  if((piece == 'K' || piece == 'k') && abs(c2 - c1) == 2) { // castling, move the rook too
     int rook_from = (c2 > c1) ? 7 : 0;
     int rook_to = (c2 > c1) ? 5 : 3;
     puzzle.board[r1][rook_to] = puzzle.board[r1][rook_from];
@@ -736,7 +736,7 @@ void applyMove(const String& mv) {
 }
 
 void puzzleNextMove() {
-  if (!puzzle.ok) return;
+  if(!puzzle.ok) return;
   if (puzzle.movesShown >= puzzle.solLen) { // done, start over
     memcpy(puzzle.board, puzzle.startBoard, sizeof(puzzle.board));
     puzzle.movesShown = 0;
@@ -757,7 +757,7 @@ void drawClockPage(bool full) {
     last_sec = -1;
   }
   struct tm now;
-  if (!getLocalTime(&now, 0) || now.tm_year < (2024 - 1900)) {
+  if(!getLocalTime(&now, 0) || now.tm_year < (2024 - 1900)) {
     if (full) drawMessage("Waiting for time...");
     return;
   }
@@ -791,7 +791,7 @@ void drawWeatherPage() {
 
 void drawPomodoroPage(bool full) {
   uint16_t color = pomoOnBreak ? COL_BREAK : COL_POMO;
-  if (full) {
+  if(full) {
     drawHeader(pomoOnBreak ? "Break" : "Focus", color);
     pomoLastSec = -1;
     int set_num = pomoDone + (pomoOnBreak ? 0 : 1);
@@ -811,7 +811,7 @@ void drawPomodoroPage(bool full) {
   const int bar_w = 300;
   const int inner = bar_w - 2;
   int filled = 0;
-  if (pomoLengthMs > 0) filled = (int)((pomoLengthMs - pomoLeftMs) * (unsigned long)inner / pomoLengthMs);
+  if(pomoLengthMs > 0) filled = (int)((pomoLengthMs - pomoLeftMs) * (unsigned long)inner / pomoLengthMs);
   filled = constrain(filled, 0, inner);
   tft.drawRect(10, 150, bar_w, 14, COL_DIM);
   if (filled > 0) tft.fillRect(11, 151, filled, 12, color);
@@ -835,7 +835,7 @@ void drawPuzzlePage() {
   printAt(212, 74, 2, COL_TEXT, "to move");
   printAt(212, 102, 1, COL_DIM, "Rating");
   printAt(212, 112, 2, COL_TEXT, String(puzzle.rating));
-  if (puzzle.theme.length() > 0) {
+  if(puzzle.theme.length() > 0) {
     String theme = puzzle.theme.substring(0, 17); // anything longer runs off the screen
     printAt(212, 138, 1, COL_DIM, "Theme");
     printAt(212, 148, 1, COL_TEXT, theme);
@@ -862,7 +862,7 @@ void drawChessPage() {
   const char* labels[4] = {"Bullet", "Blitz", "Rapid", "Puzzles"};
   int li[4] = {chess.liBullet, chess.liBlitz, chess.liRapid, chess.liPuzzle};
   int cc[4] = {chess.ccBullet, chess.ccBlitz, chess.ccRapid, chess.ccPuzzle};
-  for (int i = 0; i < 4; i++) {
+  for(int i = 0; i < 4; i++) {
     int y = 92 + i * 30;
     printAt(10, y, 2, COL_DIM, labels[i]);
     printAt(118, y, 2, i == 3 ? COL_CHESS : COL_TEXT, chess.lichessOk && li[i] > 0 ? String(li[i]) : String("-"));
@@ -898,7 +898,7 @@ void drawGithubPage() {
   if (!github.ok) { drawMessage("No GitHub data yet"); return; }
   printAt(10, 75, 3, COL_TEXT, String(github.repos) + " repos");
   printAt(10, 110, 3, COL_TEXT, String(github.followers) + " followers");
-  if (github.lastRepo.length() > 0) {
+  if(github.lastRepo.length() > 0) {
     String type = github.lastType;
     type.replace("Event", "");
     String repo = github.lastRepo;
@@ -925,7 +925,7 @@ void drawQuotePage() {
 void drawCountdownPage() {
   drawHeader("Countdowns", COL_COUNT);
   if (!timeIsSet()) { drawMessage("Waiting for time..."); return; }
-  for (int i = 0; i < NUM_COUNTDOWNS && i < 4; i++) { // only room for 4
+  for(int i = 0; i < NUM_COUNTDOWNS && i < 4; i++) { // only room for 4
     long days = daysUntil(COUNTDOWNS[i].year, COUNTDOWNS[i].month, COUNTDOWNS[i].day);
     int y = 50 + i * 42;
     printAt(10, y, 2, COL_TEXT, COUNTDOWNS[i].name);
@@ -938,7 +938,7 @@ void drawCurrentPage(bool full) {
   // clock + pomo update every loop, the rest only draw once
   if (curPage == PAGE_CLOCK) { drawClockPage(full); return; }
   if (curPage == PAGE_POMODORO) { drawPomodoroPage(full); return; }
-  if (!full) return;
+  if(!full) return;
   switch (curPage) {
     case PAGE_WEATHER: drawWeatherPage(); break;
     case PAGE_PUZZLE: drawPuzzlePage(); break;
@@ -964,7 +964,7 @@ void onShortPress() {
 }
 
 void onLongPress() {
-  if (curPage == PAGE_POMODORO) {
+  if(curPage == PAGE_POMODORO) {
     pomoReset();
     showPageColor();
     needRedraw = true;
@@ -1006,6 +1006,8 @@ void setup() {
   unsigned long start = millis();
   // give up after 15s, loop() keeps retrying
   while (WiFi.status() != WL_CONNECTED && millis() - start < 15000) delay(250);
+  if (WiFi.status() == WL_CONNECTED) Serial.println("wifi ok " + WiFi.localIP().toString());
+  else Serial.println("wifi failed, loop will retry");
   configTzTime(TIMEZONE, "pool.ntp.org", "time.nist.gov");
 
   pomoReset();
@@ -1020,6 +1022,7 @@ void loop() {
   int clicks = readEncClicks();
   if (clicks != 0) {
     curPage = ((curPage + clicks) % NUM_PAGES + NUM_PAGES) % NUM_PAGES;
+    Serial.printf("page %d\n", curPage);
     showPageColor();
     drawCurrentPage(true);
     needRedraw = false;
@@ -1028,7 +1031,7 @@ void loop() {
 
   // short press vs long press (700ms), 30ms debounce
   bool pressed = digitalRead(ENC_SW) == LOW;
-  if (pressed && !btnDown) {
+  if(pressed && !btnDown) {
     btnDown = true;
     btnDownAt = now;
     longPressDone = false;
@@ -1037,7 +1040,7 @@ void loop() {
     onLongPress();
   } else if (!pressed && btnDown) {
     btnDown = false;
-    if (!longPressDone && now - btnDownAt > 30) onShortPress();
+    if(!longPressDone && now - btnDownAt > 30) onShortPress();
   }
 
   pomoTick();
